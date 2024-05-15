@@ -1,0 +1,608 @@
+/* Estilos para la ventana modal */
+
+* {
+    margin: 0;
+    font-family: "Caveat", cursive;
+    ;
+}
+
+
+
+body {
+    background: black;
+    display: flex;
+    height: 500px;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+#titulo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+
+}
+
+.text-effect-wrapper,
+.text {
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+    }
+}
+
+.text-effect-wrapper {
+
+    --spotlight-color: white;
+
+    overflow: hidden;
+    position: relative;
+
+    &::before {
+        animation: shimmer 5s infinite linear;
+        background:
+            radial-gradient(circle, var(--spotlight-color), transparent 25%) 0 0 / 25% 25%,
+            radial-gradient(circle, var(--spotlight-color), black 25%) 50% 50% / 12.5% 12.5%;
+        inset-block-start: -100%;
+        inset-inline-start: -100%;
+        mix-blend-mode: color-dodge;
+        z-index: 3;
+    }
+
+    &::after {
+        backdrop-filter: blur(1px) brightness(90%) contrast(150%);
+        z-index: 4;
+    }
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translate3d(50%, 50%, 0);
+    }
+}
+
+.text {
+
+    width: 100%;
+    --background-color: black;
+    --text-color: white;
+
+
+    --color-1: red;
+    --color-2: blue;
+
+    /* Fuzzy white outline text */
+    color: transparent;
+    text-shadow:
+        0 0 0.02em var(--background-color),
+        0 0 0.02em var(--text-color),
+        0 0 0.02em var(--text-color),
+        0 0 0.02em var(--text-color);
+
+    /* Improve contrast of outline */
+    &::before {
+        backdrop-filter: blur(0.013em) brightness(400%);
+        z-index: 1;
+    }
+
+    /* Add text color */
+    &::after {
+        background: linear-gradient(45deg, var(--color-1), var(--color-2));
+        mix-blend-mode: multiply;
+        z-index: 2;
+    }
+}
+
+/* Alternative styling */
+body:has(#option-toggle:checked) {
+    & .text-effect-wrapper {
+        --spotlight-color: orange;
+
+        &::after {
+            backdrop-filter: brightness(90%) contrast(150%);
+        }
+    }
+
+    & .text {
+        --angle: 5deg;
+        --color-1: hsl(163, 100%, 51%);
+        --color-2: hsl(295, 88%, 32%);
+        --color-3: hsl(59, 100%, 50%);
+
+        text-shadow:
+            0 0 0.03em var(--background-color),
+            0 0 0.03em var(--text-color);
+
+        &::before {
+            backdrop-filter: brightness(150%) contrast(200%);
+        }
+
+        &::after {
+            background: linear-gradient(var(--angle), var(--color-1), var(--color-2), var(--color-3));
+            mix-blend-mode: color-dodge;
+        }
+    }
+}
+
+/* === Pen styling, ignore */
+
+h1 {
+    --font-size: clamp(2rem, 3rem + 13vw, 6rem);
+
+    font: 700 var(--font-size)/1 "Lato", sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+
+    &:empty,
+    &:focus {
+        border: 2px dotted white;
+        min-width: 1ch;
+        outline-offset: 5px;
+        width: 100%;
+    }
+}
+
+.btn_jugar {
+    width: 205px;
+    height: 80px;
+    cursor: pointer;
+    color: white;
+    font-size: 40px;
+    border-radius: 16px;
+    border: none;
+    outline: none;
+    position: relative;
+    background-color: black;
+    text-transform: uppercase;
+}
+
+.btn_jugar::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle farthest-corner at 10% 20%,
+            rgb(221, 117, 117, 1),
+            rgba(255, 94, 247, 1) 18%,
+            rgba(2, 245, 255, 1) 100%);
+    filter: blur(15px);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    animation: move 2s linear infinite;
+    background-size: 40% 200%;
+}
+
+.btn_jugar:hover {
+    background-color: black;
+}
+
+@keyframes move {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 200px 440px;
+    }
+}
+
+.modal {
+    width: 70%;
+    height: auto;
+    margin-top: 200px;
+}
+
+.modal-cont {
+    position: relative;
+    background-color: #fefefe;
+    margin: 20% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-bottom: none;
+    width: 100% auto;
+    margin-bottom: 0;
+}
+
+.modal-contenido {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background-color: #fefefe;
+    margin: 20% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-top: none;
+    width: 100% auto;
+    margin-top: 0;
+}
+
+.tit_tema {
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+}
+
+.centrado-vertical {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+}
+
+
+#opciones-dificultad {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+
+
+}
+
+#animales {
+    background-image: url(./img/animales.png);
+    background-size: cover;
+    /* Para asegurarte de que la imagen se ajuste al tamaño del contenedor */
+    background-position: center;
+    /* Para centrar la imagen dentro del contenedor */
+    background-repeat: no-repeat;
+    color: white;
+    filter: grayscale(100%);
+
+}
+
+#animales:hover {
+    filter: grayscale(0%);
+}
+
+#programacion {
+    background-image: url(./img/programacion.png);
+    background-size: cover;
+    /* Para asegurarte de que la imagen se ajuste al tamaño del contenedor */
+    background-position: center;
+    /* Para centrar la imagen dentro del contenedor */
+    background-repeat: no-repeat;
+    color: white;
+    filter: grayscale(100%);
+}
+
+#programacion:hover {
+    filter: grayscale(0%);
+}
+
+#frutas {
+    background-image: url(./img/frutas.png);
+    background-size: cover;
+    /* Para asegurarte de que la imagen se ajuste al tamaño del contenedor */
+    background-position: center;
+    /* Para centrar la imagen dentro del contenedor */
+    background-repeat: no-repeat;
+    color: white;
+    filter: grayscale(100%);
+}
+
+#frutas:hover {
+    filter: grayscale(0%);
+}
+
+
+#opciones-dificultad button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 30px;
+    gap: 50px;
+}
+
+.boton {
+    display: grid;
+    width: 205px;
+    height: 80px;
+    cursor: pointer;
+    color: white;
+    font-size: 25px;
+    border-radius: 16px;
+    border: none;
+    outline: none;
+    position: relative;
+    background-color: black;
+    text-transform: uppercase;
+}
+
+.botonC{
+    width: 205px;
+    height: 80px;
+    cursor: pointer;
+    color: white;
+    font-size: 25px;
+    border-radius: 16px;
+    border: none;
+    outline: none;
+    position: relative;
+    background-color: black;
+    text-transform: uppercase;
+}
+.botonC::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle farthest-corner at 10% 20%,
+            rgb(221, 117, 117, 1),
+            rgba(255, 94, 247, 1) 18%,
+            rgba(2, 245, 255, 1) 100%);
+    filter: blur(15px);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    animation: move 2s linear infinite;
+    background-size: 40% 200%;
+}
+
+.botonC:hover {
+    background-color: black;
+}
+
+
+.boton::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle farthest-corner at 10% 20%,
+            rgb(221, 117, 117, 1),
+            rgba(255, 94, 247, 1) 18%,
+            rgba(2, 245, 255, 1) 100%);
+    filter: blur(15px);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    animation: move 2s linear infinite;
+    background-size: 40% 200%;
+}
+
+.boton:hover {
+    background-color: black;
+}
+
+#contenedor-juego {
+    width: 100%;
+    display: none;
+    margin-top: 160px;
+}
+
+.contenedor_img {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#imagen_ahorcado {
+    width: 70%;
+    display: flex;
+}
+
+.contenedor_padre {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.nuevo-estilo {
+    gap: 40px;
+}
+
+#contenedor-juego .contenedor_letras .contenedor_img {
+    display: flex;
+    gap: 400px;
+}
+
+#contenedor-palabra {
+    display: grid;
+    color: white;
+}
+
+#mostrar-palabra,
+#espacios-palabra {
+    display: inline-block;
+    color: white;
+    font-size: 70px;
+    margin-bottom: -40px;
+}
+
+#mostrar-palabra span,
+#espacios-palabra span {
+    margin: 0 5px;
+}
+
+#teclado {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+
+
+}
+
+#teclado button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 40px;
+}
+
+#intentos {
+    margin-top: 20px;
+    color: white;
+    font-size: 40px;
+}
+
+#ayuda {
+    margin-top: 20px;
+}
+
+#titulo {
+    margin-top: 50px;
+}
+
+
+
+#btn-cerrar {
+    position: absolute;
+    top: 30px;
+    /* Ajusta el valor según sea necesario */
+    right: 45px;
+    /* Ajusta el valor según sea necesario */
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border: solid 1px;
+    font-size: 30px;
+
+}
+
+.tipo {
+    width: 300px auto;
+    height: 400px;
+    margin: 20px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+    /* Agrega una transición suave */
+}
+
+.tema {
+    width: 100%;
+    position: absolute;
+    bottom: 50px;
+    background-color: rgba(0, 0, 0, 0.763);
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+
+@media screen and (max-width:1400px) {
+
+    #teclado {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+
+    }
+
+    #teclado button {
+        font-size: 35px;
+    }
+
+    .modal {
+       margin-top: 700px;
+    }
+    .modal-contenido {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+
+}
+
+@media screen and (max-width:1200px) {
+
+    #teclado {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+
+    }
+
+    #teclado button {
+        margin: 5px;
+        padding: 7px 12px;
+        font-size: 28px;
+    }
+
+}
+
+
+@media screen and (max-width:1000px) {
+
+    #teclado {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+
+    }
+
+    #teclado button {
+        margin: 5px;
+        padding: 5px 10px;
+        font-size: 25px;
+    }
+
+}
+
+@media screen and (max-width:900px) {
+
+    #teclado {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+
+    }
+
+    #teclado button {
+        margin: 4px;
+        padding: 3px 6px;
+        font-size: 22px;
+    }
+
+    .modal {
+        margin-top: 1200px;
+     }
+    .modal-contenido {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+
+}
+
+
+@media screen and (max-width:800px) {
+
+    #contenedor-juego {
+        flex-wrap: wrap;
+    }
+
+    #imagen_ahorcado {
+      margin-top: 400px;
+ 
+    }
+}
+
+
+@media screen and (max-width:450px) {
+
+    #ayuda {
+        margin-top: 20px;
+       display: grid;
+       place-content: center;
+    }
+
+    #opciones-dificultad .centrado-vertical{
+        display: grid;
+        place-items: center;
+    }
+
+}
+
+

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahorcado</title>
+    <link rel="stylesheet" href="estilo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="titulo">
+
+        <div class="text-effect-wrapper">
+            <h1 class="text" contenteditable>AHORCADO</h1>
+        </div>
+
+
+        <button class="btn_jugar" id="btn-jugar" onclick="mostrarVentanaTema()">Jugar</button>
+    </div>
+
+
+    <div id="ventana-tema" class="modal" style="display: none;">
+        <div class="modal-cont">
+            <h2 class="tit_tema">Elije el tema del juego</h2>
+            <button id="btn-cerrar" onclick="cerrarVentanaTema()">X</button>
+        </div>
+        <div class="modal-contenido">
+
+            <div class="tipo" id="animales" onclick="mostrarDificultades('animales')">
+                <div class="tema"> Animales</div>
+            </div>
+            <div class="tipo" id="programacion" onclick="mostrarDificultades('programacion')">
+                <div class="tema">Programacion</div>
+            </div>
+            <div class="tipo" id="frutas" onclick="mostrarDificultades('frutas')">
+                <div class="tema">Frutas </div>
+            </div>
+        </div>
+    </div>
+    <div id="opciones-dificultad" class="centrado-vertical" style="display: none;">
+        <button class="boton" onclick="cargarJuego('facil')">Fácil</button>
+        <button class="boton" onclick="cargarJuego('medio')">Medio</button>
+        <button class="boton" onclick="cargarJuego('dificil')">Difícil</button>
+
+    </div>
+
+
+    <div id="contenedor-juego" style="display: none;">
+
+        <div class="contenedor_img">
+            <img id="imagen_ahorcado" src="img/ahorcado0.jpg" alt="Ahorcado">
+        </div>
+
+        <div class="contenedor_padre">
+
+            <div class="contenedor_letras">
+                <!-- Contenido del juego -->
+                <div id="contenedor-palabra">
+                    <div id="mostrar-palabra"></div>
+                    <div id="espacios-palabra"></div>
+                </div>
+                <div id="teclado">
+                    <!-- Las letras se generarán dinámicamente con JavaScript -->
+                </div>
+                <div id="intentos">
+                    <p>Intentos restantes: <span id="intentos-restantes"></span></p>
+                </div>
+                <div id="ayuda">
+                    <button class="botonC" onclick="cambiarTema()">Cambiar Tema</button>
+                    <button class="botonC" onclick="cambiarDificultad()">Cambiar Dificultad</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="style.js"></script>
+</body>
+
+</html>
